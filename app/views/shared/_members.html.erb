@@ -31,6 +31,7 @@
           <td><%= member.full_text_bio %></td>
           <td><%= member.url %></td>
           <td><%= member.picture %></td>
+          <td><%= link_to 'Show', organization_member_path(@organization, member) %></td>
           <td><%= link_to 'Edit', edit_organization_member_path(@organization, member) %></td>
           <td><%= link_to 'Destroy', organization_member_path(@organization, member), method: :delete, data: { confirm: 'Are you sure to delete this member?' } %></td>
         </tr>

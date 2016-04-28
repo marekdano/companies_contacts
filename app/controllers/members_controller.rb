@@ -1,14 +1,17 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: [:edit, :update, :destroy]
-  before_action :set_organization, only: [:new, :edit, :create, :update]
+  before_action :set_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization, only: [:show, :new, :edit, :create, :update]
 
+  # GET /organizations/1/members/1
+  def show
+  end
 
-  # GET organizations/1/members/new
+  # GET /organizations/1/members/new
   def new
     @member = @organization.members.build
   end
 
-  # GET organizations/1/members/1/edit
+  # GET /organizations/1/members/1/edit
   def edit
   end
 

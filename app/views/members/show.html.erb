@@ -1,0 +1,44 @@
+<h1>Member</h1>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @organization.name %>
+</p>
+
+<p>
+  <strong>First Name:</strong>
+  <%= @member.first_name %>
+</p>
+
+<p>
+  <strong>Last Name:</strong>
+  <%= @member.last_name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @member.title %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @member.summary %>
+</p>
+
+<p>
+  <strong>Full Text Bio:</strong>
+  <%= @member.full_text_bio %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @member.url %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= @member.picture %>
+</p>
+
+<%= link_to 'Edit', edit_organization_member_path(@organization, @member) %> |
+<%= link_to 'Back', :back %>
