@@ -1,35 +1,26 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_member, only: [:edit, :update, :destroy]
+  before_action :set_organization, only: [:new, :edit, :create, :update]
 
-  # GET /members
-  # GET /members.json
-  def index
-    @members = Member.all
-  end
 
-  # GET /members/1
-  # GET /members/1.json
-  def show
-  end
-
-  # GET /members/new
+  # GET organizations/1/members/new
   def new
-    @member = Member.new
+    @member = @organization.members.build
   end
 
-  # GET /members/1/edit
+  # GET organizations/1/members/1/edit
   def edit
   end
 
-  # POST /members
-  # POST /members.json
+  # POST /organizations/1/members
+  # POST /organizations/1/members.json
   def create
-    @member = Member.new(member_params)
+    @member = @organization.members.build(member_params)
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to @member, notice: 'Member was successfully created.' }
-        format.json { render :show, status: :created, location: @member }
+        format.html { redirect_to organization_path(@organization), notice: 'Member was successfully created.' }
+        #format.json { render :show, status: :created, location: @member }
       else
         format.html { render :new }
         format.json { render json: @member.errors, status: :unprocessable_entity }
@@ -37,13 +28,13 @@ class MembersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /members/1
-  # PATCH/PUT /members/1.json
+  # PATCH/PUT /organizations/1/members/1
+  # PATCH/PUT /organizations/1/members/1.json
   def update
     respond_to do |format|
       if @member.update(member_params)
-        format.html { redirect_to @member, notice: 'Member was successfully updated.' }
-        format.json { render :show, status: :ok, location: @member }
+        format.html { redirect_to organization_path(@organization), notice: 'Member was successfully updated.' }
+        format.json { render :show, status: :ok, location: @organization }
       else
         format.html { render :edit }
         format.json { render json: @member.errors, status: :unprocessable_entity }
@@ -51,12 +42,14 @@ class MembersController < ApplicationController
     end
   end
 
-  # DELETE /members/1
-  # DELETE /members/1.json
+  # DELETE /organizations/1/members/1
+  # DELETE /organizations/1/members/1.json
   def destroy
+    organization = @member.organization 
+
     @member.destroy
     respond_to do |format|
-      format.html { redirect_to members_url, notice: 'Member was successfully destroyed.' }
+      format.html { redirect_to organization, notice: 'Member was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +58,10 @@ class MembersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_member
       @member = Member.find(params[:id])
+    end
+
+    def set_organization
+      @organization = Organization.find(params[:organization_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
