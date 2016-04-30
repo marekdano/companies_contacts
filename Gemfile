@@ -24,6 +24,12 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+# Audited is an ORM extension that logs all changes to your models. 
+# Audited also allows you to record who made those changes, save comments 
+# and associate models related to the changes.
+gem 'audited-activerecord', '~> 4.0'
+
+gem 'devise'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,6 +1,7 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :set_organization, only: [:show, :new, :edit, :create, :update]
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
 
   # GET /organizations/1/members/1
   def show
