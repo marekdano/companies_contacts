@@ -40,5 +40,6 @@
   <%= @member.picture %>
 </p>
 
-<%= link_to 'Edit', edit_organization_member_path(@organization, @member) %> |
+
+<%= link_to 'Edit', edit_organization_member_path(@organization, @member) if current_user %> |
 <%= link_to 'Back', :back %>

@@ -23,6 +23,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
+        logger.info("User #{current_user.email} created Member '#{@member.first_name} #{@member.last_name}' on #{@member.updated_at}")
         format.html { redirect_to organization_path(@organization), notice: 'Member was successfully created.' }
         #format.json { render :show, status: :created, location: @member }
       else
@@ -37,6 +38,8 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       if @member.update(member_params)
+        logger.info("User #{current_user.email} updated Member '#{@member.first_name} #{@member.last_name}' in properties 
+          '#{@member.audits.last.audited_changes}' on #{@member.updated_at}")
         format.html { redirect_to organization_path(@organization), notice: 'Member was successfully updated.' }
         format.json { render :show, status: :ok, location: @organization }
       else
@@ -52,6 +55,7 @@ class MembersController < ApplicationController
     organization = @member.organization 
 
     @member.destroy
+    logger.info("User #{current_user.email} destroyed Member '#{@member.first_name} #{@member.last_name}' on #{@member.updated_at}")
     respond_to do |format|
       format.html { redirect_to organization, notice: 'Member was successfully destroyed.' }
       format.json { head :no_content }

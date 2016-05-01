@@ -12,7 +12,6 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1.json
   def show
     @members = @organization.members
-    logger.debug "Members are empty: #{@members.empty?}"
   end
 
   # GET /organizations/new
@@ -31,6 +30,7 @@ class OrganizationsController < ApplicationController
 
     respond_to do |format|
       if @organization.save
+        logger.info("User #{current_user.email} created Organization '#{@organization.name}' on #{@organization.updated_at}")
         format.html { redirect_to organizations_path, notice: 'Organization was successfully created.' }
         format.json { render :show, status: :created, location: @organization }
       else
@@ -45,6 +45,8 @@ class OrganizationsController < ApplicationController
   def update
     respond_to do |format|
       if @organization.update(organization_params)
+        logger.info("User #{current_user.email} updated Organization '#{@organization.name}' in properties 
+          '#{@organization.audits.last.audited_changes}' on #{@organization.updated_at}")
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
         format.json { render :show, status: :ok, location: @organization }
       else
@@ -58,6 +60,7 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1.json
   def destroy
     @organization.destroy
+    logger.info("User #{current_user.email} destroyed Organization '#{@organization.name}' on #{@organization.updated_at}")
     respond_to do |format|
       format.html { redirect_to organizations_url, notice: 'Organization was successfully destroyed.' }
       format.json { head :no_content }
